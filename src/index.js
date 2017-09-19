@@ -1,3 +1,5 @@
-import Cat from './cat.js';
-import Dog from './dog.js';
-export { Dog, Cat };
+// @flow
+export * from './form.js';
+import { withInput } from './helpers.js';
+
+export { withInput };

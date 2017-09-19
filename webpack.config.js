@@ -5,7 +5,7 @@ const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const path = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
 
-let libraryName = 'Library';
+let libraryName = 'lix-form';
 
 let plugins = [], outputFile;
 
@@ -32,19 +32,23 @@ const config = {
         test: /(\.jsx|\.js)$/,
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/
-      },
-      {
-        test: /(\.jsx|\.js)$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/
-      }
+      }//,
+      // {
+      //   test: /(\.jsx|\.js)$/,
+      //   loader: 'eslint-loader',
+      //   exclude: /node_modules/
+      // }
     ]
   },
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
     extensions: ['.json', '.js']
   },
-  plugins: plugins
+  plugins: plugins,
+  externals: {
+    'recompose': 'recompose',
+    'prop-types': 'prop-types'
+  }
 };
 
 module.exports = config;

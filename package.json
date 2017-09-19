@@ -1,8 +1,8 @@
 {
-  "name": "webpack-library-starter",
-  "version": "0.3.0",
-  "description": "Produce universal library with webpack and es6",
-  "main": "lib/library.js",
+  "name": "lix-form",
+  "version": "0.1.0",
+  "description": "Form handling for cross-platform React",
+  "main": "lib/lix-form.js",
   "scripts": {
     "build": "webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",
@@ -16,16 +16,21 @@
     "babel-loader": "7.0.0",
     "babel-plugin-add-module-exports": "0.2.1",
     "babel-preset-es2015": "6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-0": "^6.24.1",
     "chai": "3.5.0",
     "eslint": "3.19.0",
     "eslint-loader": "1.7.1",
+    "flow-bin": "^0.54.1",
     "mocha": "3.3.0",
+    "recompose": "^0.25.0",
     "webpack": "3.1.0",
-    "yargs": "7.1.0"
+    "yargs": "7.1.0",
+    "prop-types": "15.5.10"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/krasimir/webpack-library-starter.git"
+    "url": ""
   },
   "keywords": [
     "webpack",
@@ -36,10 +41,7 @@
     "umd",
     "commonjs"
   ],
-  "author": "Krasimir Tsonev",
+  "author": "Ben Gabriel Pedersen",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/krasimir/webpack-library-starter/issues"
-  },
-  "homepage": "https://github.com/krasimir/webpack-library-starter"
+  "dependencies": {}
 }
