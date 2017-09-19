@@ -1,4 +1,15 @@
 {
-  "presets": ["es2015", "stage-0", "flow"],
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions", "safari >= 7"]
+        }
+      }
+    ],
+    "stage-0",
+    "flow"
+  ],
   "plugins": ["babel-plugin-add-module-exports"]
 }

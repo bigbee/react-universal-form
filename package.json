@@ -1,8 +1,8 @@
 {
-  "name": "lix-form",
+  "name": "react-universal-form",
   "version": "0.1.0",
   "description": "Form handling for cross-platform React",
-  "main": "lib/lix-form.js",
+  "main": "lib/react-universal-form.js",
   "scripts": {
     "build": "webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",
@@ -15,7 +15,7 @@
     "babel-eslint": "7.2.3",
     "babel-loader": "7.0.0",
     "babel-plugin-add-module-exports": "0.2.1",
-    "babel-preset-es2015": "6.24.1",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-stage-0": "^6.24.1",
     "chai": "3.5.0",
@@ -23,10 +23,14 @@
     "eslint-loader": "1.7.1",
     "flow-bin": "^0.54.1",
     "mocha": "3.3.0",
+    "prop-types": "15.5.10",
     "recompose": "^0.25.0",
     "webpack": "3.1.0",
-    "yargs": "7.1.0",
-    "prop-types": "15.5.10"
+    "yargs": "7.1.0"
+  },
+  "peerDependencies": {
+    "prop-types": "15.5.10",
+    "recompose": "^0.25.0"
   },
   "repository": {
     "type": "git",
