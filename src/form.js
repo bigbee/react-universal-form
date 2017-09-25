@@ -43,10 +43,11 @@ type FormAction = Form => Form;
 type withFormOptions = {
   touchedOnChange: boolean,
   touchedOnBlur: boolean,
+  onSubmit?: Form => void,
 };
 export const withForm = (
   fields: Form,
-  { touchedOnChange = true, touchedOnBlur = true }: withFormOptions = {}
+  { touchedOnChange = true, touchedOnBlur = true, onSubmit }: withFormOptions = {}
 ) =>
   compose(
     withReducer(
@@ -75,14 +76,12 @@ export const withForm = (
         this._lastId = 0;
         this._subscriptions = {};
         const subscribe = (listener: Function) => {
-          // const id = uuid.v4();
           const id = this._lastId + 1;
           this._lastId = id;
           this._subscriptions = {
             ...this._subscriptions,
             [id]: listener,
           };
-          // this._subscriptions[id] = listener;
           return () => {
             const {
               [id]: extractedListener,
@@ -91,11 +90,14 @@ export const withForm = (
             this._subscriptions = remainingSubscriptions;
           };
         };
-        this.setState(prev => ({ subscribe }));
+        const submit = () => {
+          return onSubmit && onSubmit(this.props.form);
+        };
+        this.setState(prev => ({ ...prev, subscribe, onSubmit: submit }));
       },
       componentDidUpdate() {
         const { form } = this.props;
-        Object.values(this._subscriptions).forEach(listener => listener(form));
+        Object.values(this._subscriptions).forEach((listener: any) => listener(form));
       },
     }),
     withContext(
@@ -117,6 +119,7 @@ export const withForm = (
       const length = fields.length;
       const isValid = fields.filter(p => p.error).length === 0;
       const isTouched = fields.filter(p => p.touched).length === length;
+      
       return {
         isValid,
         isTouched,

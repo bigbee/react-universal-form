@@ -39,11 +39,10 @@
   "keywords": [
     "webpack",
     "es6",
-    "starter",
-    "library",
     "universal",
     "umd",
-    "commonjs"
+    "commonjs",
+    "forms"
   ],
   "author": "Ben Gabriel Pedersen",
   "license": "MIT",
