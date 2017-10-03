@@ -5,11 +5,16 @@
       {
         "targets": {
           "browsers": ["last 2 versions", "safari >= 7"]
-        }
+        },
+        "modules": false
       }
     ],
     "stage-0",
     "flow"
   ],
-  "plugins": ["babel-plugin-add-module-exports"]
+  "plugins": [
+    "babel-plugin-add-module-exports",
+    // "babel-plugin-external-helpers",
+    "babel-plugin-transform-react-jsx"
+  ]
 }
