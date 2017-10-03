@@ -29,3 +29,9 @@ node_modules
 # Remove some common IDE working directories
 .idea
 .vscode
+
+# Remove example build output
+examples/bundle.*
+
+# mac finder stuff
+.DS_Store

@@ -1,5 +1,6 @@
 // @flow
 export * from './form.js';
-import { withInput } from './helpers.js';
+// import { withInput, createProvider, connectToProvider } from './helpers.js';
 
-export { withInput };
+// export { withInput, connectToProvider, createProvider };
+export * from './helpers.js';

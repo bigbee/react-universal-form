@@ -8,7 +8,14 @@ import {
   withReducer,
   withContext,
   lifecycle,
+  shouldUpdate,
 } from 'recompose';
+
+import shallowEqual from 'shallowequal';
+
+import {
+  createProvider,
+} from './helpers';
 
 type Input = { value: ?any };
 
@@ -53,11 +60,11 @@ export const withForm = (
     withReducer(
       'form',
       'setForm',
-      (state: Form, action: FormAction) => action(state),
-      {
-        ...fields,
-      }
+      (state: Form, action: FormAction) => action(state), { ...fields }
     ),
+    shouldUpdate(({ form, ...props }, { nextForm, ...nextProps }) => {
+      return !shallowEqual(form, nextForm) || !shallowEqual(props, nextProps);
+    }),
     withHandlers({
       onChangeFieldValue: ({ setForm }) => (name: string, value: any) => {
         setForm(
@@ -71,55 +78,21 @@ export const withForm = (
       onFieldBlur: ({ setForm }) => name =>
         touchedOnBlur && setForm(touchField(name)),
     }),
-    lifecycle({
-      componentWillMount() {
-        this._lastId = 0;
-        this._subscriptions = {};
-        const subscribe = (listener: Function) => {
-          const id = this._lastId + 1;
-          this._lastId = id;
-          this._subscriptions = {
-            ...this._subscriptions,
-            [id]: listener,
-          };
-          return () => {
-            const {
-              [id]: extractedListener,
-              ...remainingSubscriptions
-            } = this._subscriptions;
-            this._subscriptions = remainingSubscriptions;
-          };
-        };
-        const submit = () => {
-          return onSubmit && onSubmit(this.props.form);
-        };
-        this.setState(prev => ({ ...prev, subscribe, onSubmit: submit }));
-      },
-      componentDidUpdate() {
-        const { form } = this.props;
-        Object.values(this._subscriptions).forEach((listener: any) => listener(form));
-      },
-    }),
-    withContext(
-      {
-        form: PropTypes.object.isRequired,
-        onChangeFieldValue: PropTypes.func.isRequired,
-        onFieldBlur: PropTypes.func.isRequired,
-        subscribe: PropTypes.func.isRequired,
-      },
-      ({ onChangeFieldValue, onFieldBlur, form, subscribe }) => ({
+    createProvider({
+      name: 'form',
+      initialState: ({ form, setForm, onChangeFieldValue, onFieldBlur }) => ({
         form,
+        setForm,
         onChangeFieldValue,
         onFieldBlur,
-        subscribe,
-      })
-    ),
+      }),
+    }),
     withProps(({ form }: { form: Form }) => {
       const fields: Array<Field> = (Object.values(form): Array<any>);
       const length = fields.length;
       const isValid = fields.filter(p => p.error).length === 0;
       const isTouched = fields.filter(p => p.touched).length === length;
-      
+
       return {
         isValid,
         isTouched,
@@ -145,7 +118,7 @@ const setField = (
 });
 
 export const touchField = (name: string): FormAction =>
-  setField(name, field => ({ ...field, touched: true }));
+  setField(name, field => !field.touched ? ({ ...field, touched: true }) : field);
 
 export const validateField = (name: string): FormAction =>
   setField(name, field => ({
