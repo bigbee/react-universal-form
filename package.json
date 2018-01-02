@@ -1,6 +1,6 @@
 {
   "name": "universal-react-form",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Form handling for cross-platform React",
   "main": "lib/universal-react-form.min.js",
   "scripts": {
