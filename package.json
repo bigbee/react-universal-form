@@ -2,7 +2,7 @@
   "name": "universal-react-form",
   "version": "0.1.2",
   "description": "Form handling for cross-platform React",
-  "main": "lib/react-universal-form.min.js",
+  "main": "lib/universal-react-form.min.js",
   "scripts": {
     "build": "webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",

@@ -1,0 +1,2 @@
+# react native seems to respect the babelrc file used for dev. So let's ignore it.
+.babelrc

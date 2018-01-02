@@ -9,7 +9,7 @@ import {
   fieldDefaults,
   withForm,
   withInput,
-} from '../lib/react-universal-form.min.js';
+} from '../lib/universal-react-form.min.js';
 
 const App = ({ children, ...rest }) => {
   return <div>{children}</div>;
